@@ -1,7 +1,7 @@
 #!/bin/sh
 ls -la $PWD
 ls -la $PWD/testrepo
-ls -la $PWD/files
+ls -la $PWD/keyval
 
-cat $PWD/files/build.properties
+cat $PWD/keyval/build.properties
 
