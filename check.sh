@@ -3,5 +3,5 @@ ls -la $PWD
 ls -la $PWD/testrepo
 ls -la $PWD/keyval
 
-cat $PWD/keyval/build.properties
+cat $PWD/keyval/keyval.properties
 
