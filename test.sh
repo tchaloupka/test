@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd testrepo
-echo "version="`git describe | trim -n '\n'` > files/build.properties
+echo -n "version="`git describe | tr -d '\n'` > files/build.properties
 ls -la /
 ls -la /build
 ls -la /files
