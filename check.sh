@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ls -la /
+ls -la $PWD
 ls -la /files
 cat /files/build.properties
 
