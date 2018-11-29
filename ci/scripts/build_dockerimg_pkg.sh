@@ -26,7 +26,7 @@ NAME=$(cat "$1"/repository | tr -d '\n')
 NAME=${NAME#*/}
 
 VERSION=$(cat "$2" | tr -d '\n')
-SIZE=$(du "$3"/image | cut -f1)
+SIZE=$(du "$1"/image | cut -f1)
 
 cat <<EOT >> "$TMP_PKG_DIR/control"
 Package: ivisec-${NAME}
