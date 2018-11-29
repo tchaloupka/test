@@ -1,5 +1,6 @@
 FROM alpine:3.7
 
+# Note: Change asciidoctor version in version.txt too as it is used as a tag for built image by CI
 ARG asciidoctor_version=1.5.8
 ARG asciidoctor_pdf_version=1.5.0.alpha.16
 ARG asciidoctor_epub3_version=1.5.0.alpha.8
