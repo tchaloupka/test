@@ -22,3 +22,19 @@ TMP_PKG_DIR="/tmp/dockerimg"
 mkdir -p "$TMP_PKG_DIR/DEBIAN"
 mkdir -p "$TMP_PKG_DIR/usr/share/ivisec/docker"
 ls -la "$1"
+
+echo digest
+cat $1/digest
+
+echo image-id
+cat $1/image-id
+
+echo metadata.json
+cat $1/metadata.json
+
+echo repository
+cat $1/repository
+
+echo tag
+cat $1/tag
+
