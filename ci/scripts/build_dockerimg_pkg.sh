@@ -22,14 +22,13 @@ TMP_PKG_DIR="/tmp/dockerimg"
 mkdir -p "$TMP_PKG_DIR/DEBIAN"
 mkdir -p "$TMP_PKG_DIR/usr/share/ivisec/docker"
 
-NAME=$(cat "$1"/repository | tr -d '\n')
+NAME=$(cat "$1/repository" | tr -d '\n')
 NAME=${NAME#*/}
 
 VERSION=$(cat "$2" | tr -d '\n')
-SIZE=$(du "$1"/image | cut -f1)
+SIZE=$(du "$1/image" | cut -f1)
 
-cat <<EOT >> "$TMP_PKG_DIR/DEBIAN/control"
-Package: ivisec-${NAME}
+echo -e 'Package: ivisec-${NAME}
 Version: ${VERSION}
 Architecture: any
 Section: ivisec
@@ -39,8 +38,27 @@ Depends: docker-ce
 Maintainer: info@ivisec.com
 Homepage: www.ivisec.com
 Description: Docker image package
-EOT
+' > "$TMP_PKG_DIR/DEBIAN/control"
 
+echo "control:"
 cat "$TMP_PKG_DIR/DEBIAN/control"
+
+echo -e '
+#!/bin/bash
+set -e
+
+case $1 in
+configure)
+	# Load the image to docker
+	docker load < /usr/share/ivisec/docker/$NAME
+	;;
+esac
+' > "$TMP_PKG_DIR/DEBIAN/postinst"
+
+echo ""
+echo "postinst:"
+cat "$TMP_PKG_DIR/DEBIAN/postinst"
+
+cp "$1/image" "$TMP_PKG_DIR/usr/share/ivisec/docker/$NAME"
 
 dpkg-deb --root-owner-group -b -Zxz -z9 "$TMP_PKG_DIR" "$3/ivisec-$NAME.deb"
