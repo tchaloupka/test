@@ -28,7 +28,7 @@ NAME=${NAME#*/}
 VERSION=$(cat "$2" | tr -d '\n')
 SIZE=$(du "$1"/image | cut -f1)
 
-cat <<EOT >> "$TMP_PKG_DIR/control"
+cat <<EOT >> "$TMP_PKG_DIR/DEBIAN/control"
 Package: ivisec-${NAME}
 Version: ${VERSION}
 Architecture: any
@@ -41,4 +41,6 @@ Homepage: www.ivisec.com
 Description: Docker image package
 EOT
 
-cat "$TMP_PKG_DIR/control"
+cat "$TMP_PKG_DIR/DEBIAN/control"
+
+dpkg-deb --root-owner-group -b -Zxz -z9 "$TMP_PKG_DIR" "%3/ivisec-$NAME.deb"
