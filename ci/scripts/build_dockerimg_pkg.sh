@@ -43,4 +43,4 @@ EOT
 
 cat "$TMP_PKG_DIR/DEBIAN/control"
 
-dpkg-deb --root-owner-group -b -Zxz -z9 "$TMP_PKG_DIR" "%3/ivisec-$NAME.deb"
+dpkg-deb --root-owner-group -b -Zxz -z9 "$TMP_PKG_DIR" "$3/ivisec-$NAME.deb"
