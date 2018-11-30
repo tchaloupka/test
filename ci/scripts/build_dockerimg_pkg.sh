@@ -28,7 +28,8 @@ NAME=${NAME#*/}
 VERSION=$(cat "$2" | tr -d '\n')
 SIZE=$(du "$1/image" | cut -f1)
 
-echo -e 'Package: ivisec-${NAME}
+cat <<EOF > "$TMP_PKG_DIR/DEBIAN/control"
+Package: ivisec-${NAME}
 Version: ${VERSION}
 Architecture: any
 Section: ivisec
@@ -38,12 +39,12 @@ Depends: docker-ce
 Maintainer: info@ivisec.com
 Homepage: www.ivisec.com
 Description: Docker image package
-' > "$TMP_PKG_DIR/DEBIAN/control"
+EOF
 
 echo "control:"
 cat "$TMP_PKG_DIR/DEBIAN/control"
 
-echo -e '
+cat <<EOF > "$TMP_PKG_DIR/DEBIAN/postinst"
 #!/bin/bash
 set -e
 
@@ -53,7 +54,7 @@ configure)
 	docker load < /usr/share/ivisec/docker/$NAME
 	;;
 esac
-' > "$TMP_PKG_DIR/DEBIAN/postinst"
+EOF
 
 echo ""
 echo "postinst:"
