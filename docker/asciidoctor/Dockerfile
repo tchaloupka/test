@@ -39,10 +39,12 @@ RUN apk add --no-cache \
 # Installing Vega
 RUN apk add --no-cache --virtual .vegadepends \
     python cairo-dev jpeg-dev giflib-dev g++ yarn git \
-    && git clone https://github.com/vega/vega.git -b "${VEGA_VERSION}" \
+    && git clone --depth=1 https://github.com/vega/vega.git -b "${VEGA_VERSION}" \
     && cd vega && yarn && yarn build && yarn install \
     && ln -s /vega/bin/vg2* /usr/local/bin/ \
-    && rm -rf docs \
+    && rm -rf /vega/docs && rm -rf /vega/.git \
+    && rm -rf /vega/node_modules/vega-datasets \
+    && rm -rf /usr/local/share/.cache \
     && apk del -r --no-cache .vegadepends
 
 # Installing Ruby Gems needed in the image
@@ -70,7 +72,9 @@ RUN apk add --no-cache --virtual .rubymakedepends \
     slim \
     thread_safe \
     tilt \
- && apk del -r --no-cache .rubymakedepends
+ && apk del -r --no-cache .rubymakedepends \
+ && find . -name "*.gz" -delete \
+ && rm -rf /usr/lib/ruby/gems/2.4.0/gems/kindlegen-3.0.3/ext/
 
 # Installing Python dependencies for additional
 # functionnalities as diagrams or syntax highligthing
