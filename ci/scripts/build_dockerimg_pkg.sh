@@ -64,4 +64,4 @@ cat "$TMP_PKG_DIR/DEBIAN/postinst"
 
 cp "$1/image" "$TMP_PKG_DIR/usr/share/ivisec/docker/$NAME"
 
-dpkg-deb --root-owner-group -b -Zxz -z9 "$TMP_PKG_DIR" "$3/ivisec-$NAME.deb"
+dpkg-deb --root-owner-group -b -Zxz -z9 "$TMP_PKG_DIR" "$3/ivisec-$NAME_$VERSION.deb"
