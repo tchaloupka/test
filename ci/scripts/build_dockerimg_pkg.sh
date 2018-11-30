@@ -56,6 +56,8 @@ configure)
 esac
 EOF
 
+chmod +x "$TMP_PKG_DIR/DEBIAN/postinst"
+
 echo ""
 echo "postinst:"
 cat "$TMP_PKG_DIR/DEBIAN/postinst"
